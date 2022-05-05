@@ -1,0 +1,73 @@
+{-d3 $ loopAt 8 $ every 8 rev $ striate "32*4 16" $ sound "acgtr*8" # begin 0.25 # end 0.5 # lpf "600*8 800*8 1200*8" # lpq 0.2
+
+d2 $ loopAt "8" $ every 14 rev $ striate "[16 8 8]*2 16" $ sound "cust:12*8" # begin "0.6 0.5 0.7" # end 0.8 # lpf 2000 # lpq 0 # gain 1
+
+d3 $ every 7 (fast 2) $ every 7 rev $ density "2" $ splice "[32 16 8*4 16 32 16]" "[4 3] <5 6 [0 7]> 12 10 15 14" $ unit "c" # sound "break:5" # gain 1 # pan (range 0.6 0.9 rand*2)
+  # speed "1 1 1 -1 1 1 -1 1"
+  # cps 0.4
+
+d4 $ arp "<updown thumpup diverge>" $ fast "4 8 [4 8 2 8]/3" $ every "<3 5 4>" rev $ n "<[a5'maj g5'maj c4'maj g4'maj]/6 [c5'maj f5'maj b3'min]/4>/2" # s "superhammond"
+  # decay (range 1 2 sine)
+
+d1 $ segment "<8*2 [12 16]/2> <12 16>" $ n (scale "major" $ "[[0 4 4 5, 0 2] [6 3 7, 4 3 2 5]]" |+ (floor <$> range 0 "3 4 2 3 4 1" (slow "<3 5>" sine))) # sound "[superzow]"
+  # decay 1.2 # sustain 0.5 # gain 0.7
+
+d3 $ struct "t(<6 9>, 16)" $ n (scale "major" $ "<3 2 0> [5 <7 9>/3]/2 [<2 7> 4]") # s "arpy"
+  # lpf (slow 5 (range 1000 4000 sine)) # lpq 0.2 # decay (fast 1.5 (range 1.2 2.5 sine)) # speed 0.5
+
+d3 $ every "[2 5 3]" (hurry 2) $ every "2 5" rev $ splice 16 "[0 1 <0 2 12>] <[7 5]*3> 4*2 14 [12 9]*3" $ s "break:6" # gain 1.6 # lpf (slow 5 (range 2000 5000 sine)) # lpq 0.2 # pan (range 0.5 0.8 rand)
+
+d2 $ every 2 (density "2 1") $ every 5 rev $ s "[super808 super808 supersnare superhat, superhat superhat*2 super808 [supersnare superhat*5]]"
+
+
+let x = fast "1 1 2 1 2" $ every 3 rev $ sound "lt mt ht bd*2"
+d1 $ seqPLoop [(0, 2, x),
+  (1, 3, sound "clap(3,8)" # speed 2),
+  (3, 6, sound "[kick:5(5,4), snare:3(7,8,2)]")
+  ]
+
+
+d1 $ loopAt "2 4" $ striate "32 16*3 <12 14>" $ sound "pebbles*4" # begin 0.2 # end 0.5
+
+d2 $ arp "pinkyup" $ (density "2 1") $ n "<a4'min'7 f4'maj'7 f4'maj c4'maj'7>" # s "supersaw"
+  # decay (range 0.6 1 (slow 5 sine)) # sustain (range 0.5 1 (slow 3 sine))
+  # room 0.6 # gain 0.9
+
+d3 $ every 2 (density "2 1") $ every 5 rev $ s "[super808 super808 supersnare superhat, superhat superhat*2 super808 [supersnare superhat*5]]" # pan (range 0.2 0.8 rand)
+
+d4 $ arp "updown" $ slow 4 $ n "<c4'maj'7 d4'min'7>" # s "jungbass" # gain 0.9
+
+
+d1 $ every 3 ("<0.25 0 0.75>" ~>) $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # s "cpu2"
+-}
+
+d1 $ splice 32 "[0 3 6]/2 [2 <8 5>]/2 <8 17 20 30>" $ unit "c" # "cust:3" # speed ("<-0.25 0.25 -0.25 -0.25 0.5>")
+
+d2 $ n "[0 [8 6], [1 <5 3 4>]/3] 4 8 <3 [2 1]>" # s "claus" # pan (fast 3 sine)
+
+d4 silence
+
+d3 silence
+
+d2 silence
+
+d1 silence
+
+hush
+
+-- ARPS
+-- up, down, updown, downup, converge, diverge, disconverge, pinkyup,
+-- pinkyupdown, thumbup thumbupdown
+
+--SYNTHS
+-- gong, square, pwm, saw, chip, hoover, hammond, tron, zow, reese, mandolin, piano, fork, fm
+-- (DRUMS) hex, kick, 808, hat, snare, clap
+
+-- Here's the current list of shorthands available:
+-- w = 1 (whole)
+-- h = 0.5 (half)
+-- q = 0.25 (quarter)
+-- e = 0.125 (eighth)
+-- s = 0.0624 (sixteenth)
+-- t = 1/3 (third)
+-- f = 0.2 (fifth)
